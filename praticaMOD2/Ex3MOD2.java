@@ -3,11 +3,34 @@
 class Quicksort {
 
     static void swap(int[] a, int i, int j) {
-        // a ser completada
+        int aux = a[i];
+        a[i] = a[j];
+        a[j] = aux;
     }
 
     static int partition(int[] a, int l, int r) {
-        return 0; // a ser completada
+        int pivo = a[l];
+        int init_pos = l;
+
+        while(l < r){
+            while(a[l] <= pivo && l < r){
+                l++;
+            }
+            while(a[r] > pivo && r>0){
+                r--;
+            }
+
+            if(l < r) {
+                swap(a,l,r);
+                System.out.println("Ta entrando no swap do while entrando no if");
+            }
+        }
+
+       
+        swap(a,init_pos,r);
+        System.out.println("Ta entrando no swap do final");
+        
+        return r;
     }
 
     static void quickrec(int[] a, int l, int r) {
@@ -15,13 +38,13 @@ class Quicksort {
     }
 
     static void quicksort(int[] a) {
-        // a ser completada
+
     }
 
 }
 
 // A classe Ex3 é fornecida, para testar o código de Quicksort
-class Ex3 {
+class Ex3MOD2 {
     static boolean is_sorted(int[] a) {
         for (int i = 1; i < a.length; i++)
             if (!(a[i-1] <= a[i])) return false;
