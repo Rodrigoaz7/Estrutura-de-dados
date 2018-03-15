@@ -3,17 +3,36 @@
 class DutchFlag {
 
     static void swap(int[] a, int i, int j) {
-        // a ser completada
+        int aux = a[i];
+        a[i] = a[j];
+        a[j] = aux;
     }
 
     static void dutch_flag(int[] a) {
-        // a ser completada
+        int b,i,r;
+        b=i=0;
+        r = a.length-1;
+
+        while(i <= r){
+        	if(a[i] == 0){
+        		swap(a,i,b);
+        		b++;
+        		i++;
+        	}
+        	else if(a[i] == 1){
+        		i++;
+        	}
+        	else if(a[i] == 2){
+        		swap(a,i,r);
+        		r--;
+        	}
+        }
     }
 
 }
 
 // A classe Ex2 é fornecida, para testar o código de DutchFlag
-class Ex2 {
+class Ex2MOD2 {
     static boolean is_sorted(int[] a) {
         for (int i = 1; i < a.length; i++)
             if (!(a[i-1] <= a[i])) return false;
