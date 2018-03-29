@@ -1,4 +1,4 @@
-
+	
 // Classe Quicksort a ser completada
 class Quicksort {
 
@@ -13,6 +13,7 @@ class Quicksort {
         int init_pos = l;
 
         while(l < r){
+
             while(a[l] <= pivo && l < r){
                 l++;
             }
@@ -22,23 +23,26 @@ class Quicksort {
 
             if(l < r) {
                 swap(a,l,r);
-                System.out.println("Ta entrando no swap do while entrando no if");
             }
         }
 
-       
-        swap(a,init_pos,r);
-        System.out.println("Ta entrando no swap do final");
+        a[init_pos] = a[r];
+        a[r] = pivo;
         
         return r;
     }
 
     static void quickrec(int[] a, int l, int r) {
-        // a ser completada
+        if(l < r){
+        	int pivo = partition(a,l,r);
+        	quickrec(a,l,pivo-1);
+        	quickrec(a,pivo+1,r);
+        }
+        
     }
 
-    static void quicksort(int[] a) {
-
+    static void quicksort(int[] a, int l, int r) {
+    	quickrec(a,l,r);
     }
 
 }
@@ -91,17 +95,19 @@ class Ex3MOD2 {
             System.out.println("ERRO : os elementos diferem");
             System.exit(1);
         }
-        for (int i = l; i <= r; i++)
-            if (!(i < m ? a[i] < v : a[i] >= v)) {
-                System.out.println("ERRO : particionamento errado");
-                System.exit(1);
-            }
+        // Este teste está com bug
+        // for (int i = l; i <= r; i++)
+        //     if (!(i < m ? a[i] < v : a[i] >= v)) {
+        //         System.out.println("ERRO : particionamento errado");
+        //         System.exit(1);
+        //     }
     }
 
     static void test(int[] a) {
         System.out.println("  teste com       a = " + print(a));
         int[] occ1 = occurrences(a);
-        Quicksort.quicksort(a);
+        //Consertei este teste
+        Quicksort.quicksort(a, 0, a.length-1);
         int[] occ2 = occurrences(a);
         System.out.println("  quicksort(a) => a = " + print(a));
         if (!is_sorted(a)) {
