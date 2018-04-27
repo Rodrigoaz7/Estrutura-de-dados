@@ -18,7 +18,7 @@ class CalcRPN {
 			double soma1 = aPilha.desempilha();
 			double soma2 = aPilha.desempilha();
 			aPilha.empilha(soma1+soma2);
-			hist.empilha(new Operacao('+', soma1, soma2));
+			hist.empilha(new Operacao('+', soma1, soma2));	
 		} catch (NoSuchElementException e){
 			throw new Error("A lista eh invalida; erro eh: " + e.getMessage());
 		} 
@@ -68,15 +68,20 @@ class CalcRPN {
 	}
 
 	void cancela(){
-		// String resultado = hist.desempilha();
-		// if(resultado.charAt(0) == '+' || resultado.charAt(0) == '-' ||
-		// 	resultado.charAt(0) == '*' || resultado.charAt(0) == '/'){
-		// 	System.out.println("nao fiz, eh operacao");
-		// }
-		// else {
-		// 	aPilha.desempilha();
-		// }
-		// this.imprimir_historico();
+		if (!hist.estaVazia()){
+			Operacao op = hist.desempilha();
+			
+			//String resultado = String.valueOf(hist.desempilha().code);
+			if(op.code == '+' || op.code == '-' || op.code == '*' || op.code == '/'){
+				aPilha.desempilha();
+				aPilha.empilha(op.a);
+				aPilha.empilha(op.b);
+			}
+			else {
+				aPilha.desempilha();
+			}
+			imprimir_historico();
+		}
 	}
 
 
@@ -84,16 +89,16 @@ class CalcRPN {
 	void exec(String cmd) {
 
 		//Tive de comparar caracteres ao inves de strings (nao estava funcionando)
-		if(cmd.charAt(0) == '+') this.mais();
-		else if(cmd.charAt(0) == '-') this.menos();
-		else if(cmd.charAt(0) == '*') this.vezes();
-		else if(cmd.charAt(0) == '/') this.dividido();
-		else if(cmd.equals("clear")) this.limpar();
-		else if(cmd.equals("hist")) this.imprimir_historico();
-		else if(cmd.equals("undo")) this.cancela();
+		if(cmd.charAt(0) == '+') mais();
+		else if(cmd.charAt(0) == '-') menos();
+		else if(cmd.charAt(0) == '*') vezes();
+		else if(cmd.charAt(0) == '/') dividido();
+		else if(cmd.equals("clear")) limpar();
+		else if(cmd.equals("hist")) imprimir_historico();
+		else if(cmd.equals("undo")) cancela();
 		else {
-			this.aPilha.empilha(Double.parseDouble(cmd));
-			this.hist.empilha(new Operacao(Double.parseDouble(cmd)));
+			aPilha.empilha(Double.parseDouble(cmd));
+			hist.empilha(new Operacao(Double.parseDouble(cmd)));
 		}
 	}
 
@@ -140,7 +145,7 @@ class CalcRPN {
 
 	public static void main(String[] args) throws IOException{
 		//test();
-		CalcRPN calc = new CalcRPN() ;
+		CalcRPN calc = new CalcRPN();
 		String line;
 		BufferedReader reader = new BufferedReader
 		(new InputStreamReader (System.in));
@@ -149,10 +154,10 @@ class CalcRPN {
 		continue;
 		for (String s : line.split(" "))
 		calc.exec(s);
-		//System.out.println("Historico = " + calc.hist);
 		System.out.println("Pilha = " + calc.aPilha);
+		//System.out.println("Historico = " + calc.hist);
 		}
-		System.out.println("Ate logo");
+		System.out.println("Ate logo");
 		}
 	
 }

@@ -35,13 +35,18 @@ public class Pilha<X>{
 
 	public String toStringReverse() {
 		LinkedList<X> temp = new LinkedList<>();
-		LinkedList<X> aux = this.conteudo;
-		int size_of_conteudo = this.conteudo.size();
-		while(size_of_conteudo > 0){
-			temp.addFirst(aux.removeFirst());
-			size_of_conteudo--;
+		LinkedList<X> aux = new LinkedList<>();
+
+		int size_of_conteudo = conteudo.size();
+		for(int i=0; i < size_of_conteudo; i++){
+			X obj = conteudo.removeFirst();
+			temp.addFirst(obj);
+			aux.addFirst(obj);
 		}
-		return temp.toString();
+		for(int i=0; i < size_of_conteudo; i++){
+			conteudo.addFirst(temp.removeFirst());
+		}
+		return aux.toString();
 	}
 
 	public void reinicialize(){
