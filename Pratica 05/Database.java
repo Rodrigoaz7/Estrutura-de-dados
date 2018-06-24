@@ -40,8 +40,8 @@ public class Database {
 	}
 
 	public static void main(String[] args) {
-		//test6();
-		Database.test5();
+		test6();
+		//Database.test5();
 	}
 
 	public static Conta get_conta(String[] md5_v) {
